@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Taskflow: a browser-based to-do list by Ingvar Guðjónsson.">
+<meta name="author" content="Ingvar Guðjónsson">
+<title>Taskflow — A little more focus</title>
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to tasks</a>
+<div class="layout">
+<aside class="sidebar">
+<a class="brand" href="index.html">taskflow<span> / </span></a>
+<p class="sidebar-label">YOUR WORKSPACE</p>
+<nav aria-label="Task views">
+<button class="view active" data-filter="all" aria-pressed="true"><span>All tasks</span><span id="count-all">0</span></button>
+<button class="view" data-filter="active" aria-pressed="false"><span>In progress</span><span id="count-active">0</span></button>
+<button class="view" data-filter="completed" aria-pressed="false"><span>Completed</span><span id="count-completed">0</span></button>
+</nav>
+<div class="sidebar-bottom"><span class="local-label">YOUR DEVICE. YOUR LIST.</span><p>Your tasks stay in this browser. No account needed.</p><button id="reset" class="text-button">Reset workspace</button></div>
+</aside>
+<main id="main">
+<header class="topbar"><span>PERSONAL WORKSPACE</span><span id="save-status">Saved on this device</span></header>
+<section class="heading"><p class="eyebrow">MAKE SPACE FOR WHAT MATTERS</p><h1>A little more focus.</h1><p>One task at a time. Make today feel manageable.</p></section>
+<section class="summary" aria-label="Task overview"><div><span>Tasks to do</span><strong id="remaining">0</strong></div><div><span>Completed</span><strong id="done">0</strong></div><div class="progress-stat"><span>Your progress <b id="percentage">0%</b></span><progress id="progress" max="100" value="0" aria-label="Task completion">0%</progress><small id="progress-copy">A fresh list. A fresh start.</small></div></section>
+<section class="workspace" aria-label="Manage your tasks">
+<form id="add-form" class="add-form"><label class="sr-only" for="new-title">New task title</label><input id="new-title" placeholder="What would you like to get done?" maxlength="160" required autocomplete="off"><label class="sr-only" for="new-priority">Priority</label><select id="new-priority"><option value="normal">Normal priority</option><option value="high">High priority</option><option value="low">Low priority</option></select><button type="submit" class="primary">Add task <span aria-hidden="true">+</span></button></form>
+<div class="list-toolbar"><h2 id="view-title">All tasks</h2><div class="tools"><label class="sr-only" for="search">Search tasks</label><input type="search" id="search" placeholder="Search tasks…"><label class="sr-only" for="sort">Sort tasks</label><select id="sort"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="priority">Priority first</option></select></div></div>
+<ul id="task-list" class="task-list" aria-label="Tasks"></ul>
+<div id="empty" class="empty"><span class="empty-mark" aria-hidden="true">✓</span><h3 id="empty-title">Room for a fresh start.</h3><p id="empty-copy">Add your first task above. Keep it small and specific.</p></div>
+<div class="list-footer"><span id="visible-count">0 tasks</span><button id="clear-completed" class="text-button" disabled>Clear completed</button></div>
+</section>
+<p id="notice" class="notice" role="status" aria-live="polite"></p>
+<footer><span>Built by Ingvar Guðjónsson</span><span>Small steps. Steady progress.</span></footer>
+</main>
+</div>
+<!-- Native dialog keeps edit controls keyboard accessible and supports Escape to cancel. -->
+<dialog id="edit-dialog"><form id="edit-form"><p class="eyebrow">MAKE A SMALL ADJUSTMENT</p><h2>Edit task</h2><label for="edit-title">Task title</label><input id="edit-title" maxlength="160" required><label for="edit-priority">Priority</label><select id="edit-priority"><option value="normal">Normal</option><option value="high">High</option><option value="low">Low</option></select><div class="dialog-actions"><button id="cancel-edit" type="button" class="secondary">Cancel</button><button type="submit" class="primary">Save changes</button></div></form></dialog>
+<!-- Confirmation prevents accidental bulk deletion. -->
+<dialog id="confirm-dialog"><form id="confirm-form"><h2 id="confirm-title">Are you sure?</h2><p id="confirm-description"></p><div class="dialog-actions"><button id="cancel-confirm" type="button" class="secondary">Cancel</button><button type="submit" class="danger">Delete</button></div></form></dialog>
+</body>
+</html>
